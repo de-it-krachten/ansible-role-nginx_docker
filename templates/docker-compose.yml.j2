@@ -1,0 +1,11 @@
+version: '3'
+services:
+  nginx:
+    image: nginx
+    volumes:
+      - "{{ nginx_confd_path }}:/etc/nginx/conf.d"
+      - "{{ nginx_certs_path }}:/etc/nginx/certs"
+      - "{{ nginx_html_path }}:/usr/share/nginx/html"
+      - "{{ nginx_log_path }}:/var/log/nginx" 
+    ports:
+      - 443:443

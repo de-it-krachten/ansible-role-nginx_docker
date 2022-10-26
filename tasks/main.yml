@@ -1,0 +1,36 @@
+---
+
+- name: Create nginx directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ nginx_confd_path }}"
+    - "{{ nginx_certs_path }}"
+    - "{{ nginx_html_path }}"
+    - "{{ nginx_log_path }}"
+
+- name: Create nginx configuration
+  template:
+    src: nginx.vhost.conf.j2
+    dest: "{{ nginx_confd_path }}/{{ nginx_fqdn }}.conf"
+    mode: "0644"
+
+- name: Create SSL certificate (self-signed)
+  include_role:
+    name: openssl
+  vars:
+    openssl_server_key: "{{ nginx_certs_path }}/{{ nginx_fqdn }}.key"
+    openssl_server_crt: "{{ nginx_certs_path }}/{{ nginx_fqdn }}.crt"
+    openssl_server_csr: "{{ nginx_certs_path }}/{{ nginx_fqdn }}.csr"
+    openssl_type: self-signed
+  args:
+    apply:
+      become: yes
+  when: nginx_cert_type == 'self-signed'
+
+- name: Start nginx container
+  community.docker.docker_compose:
+    project_name: nginx
+    definition: "{{ lookup('template', 'docker-compose.yml.j2') | from_yaml }}"

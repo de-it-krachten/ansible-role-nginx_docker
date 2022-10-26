@@ -1,0 +1,87 @@
+---
+
+# Generic
+generic:
+  role: ansible-role-nginx_docker
+  role_short: nginx_docker
+  role_description: |
+    Manage nginx instance in Docker 
+  collections: []
+
+# Supported platforms
+platforms:
+  rhel7:
+    ci: false
+    supported: false
+  rhel8:
+    ci: false
+    supported: true
+  rhel9:
+    ci: false
+    supported: true
+  centos7:
+    ci: false
+    supported: false
+  centos8:
+    ci: false
+    supported: false
+  centos8s:
+    ci: false
+    supported: false
+  centos9s:
+    ci: false
+    supported: false
+  rockylinux8:
+    ci: false
+    supported: true
+  rockylinux9:
+    ci: false
+    supported: true
+  oraclelinux8:
+    ci: false
+    supported: true
+  almalinux8:
+    ci: false
+    supported: true
+  almalinux9:
+    ci: false
+    supported: true
+  debian10:
+    ci: false
+    supported: true
+  debian11:
+    ci: false
+    supported: true
+  ubuntu1804:
+    ci: false
+    supported: true
+  ubuntu2004:
+    ci: false
+    supported: true
+  ubuntu2204:
+    ci: false
+    supported: true
+  fedora35:
+    ci: false
+    supported: true
+  fedora36:
+    ci: false
+    supported: true
+  alpine3:
+    ci: false
+    supported: true
+  docker:
+    ci: true
+    supported: true
+
+# Molecule
+molecule:
+  requirements:
+    roles_extra:
+      - name: openssl
+        version: dev
+      - name: python
+        version: dev
+  converge:
+    roles: []
+    vars: {}

@@ -1,0 +1,25 @@
+---
+
+# nginx root
+nginx_root_path: /export/docker/nginx
+
+# nginx config path (drop-in)
+nginx_confd_path: "{{ nginx_root_path }}/conf.d"
+
+# nginx certificate location
+nginx_certs_path: "{{ nginx_root_path }}/certs"
+
+# nginx HTML location
+nginx_html_path: "{{ nginx_root_path }}/html"
+
+# nginx log location
+nginx_log_path: "{{ nginx_root_path }}/logs"
+
+# nginx webroot
+nginx_server_root: /usr/share/nginx/html
+
+# FQDN of the web server
+nginx_fqdn: www.example.com
+
+# SSL/TLS type
+nginx_cert_type: 'self-signed'
