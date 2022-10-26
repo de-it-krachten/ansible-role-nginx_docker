@@ -1,7 +1,7 @@
 ---
 
 - name: Create nginx directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     mode: "0755"
@@ -12,13 +12,13 @@
     - "{{ nginx_log_path }}"
 
 - name: Create nginx configuration
-  template:
+  ansible.builtin.template:
     src: nginx.vhost.conf.j2
     dest: "{{ nginx_confd_path }}/{{ nginx_fqdn }}.conf"
     mode: "0644"
 
 - name: Create SSL certificate (self-signed)
-  include_role:
+  ansible.builtin.include_role:
     name: openssl
   vars:
     openssl_server_key: "{{ nginx_certs_path }}/{{ nginx_fqdn }}.key"
