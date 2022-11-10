@@ -10,11 +10,12 @@ Manage nginx instance in Docker
 ## Dependencies
 
 #### Roles
-None
+- openssl
 
 #### Collections
 - community.general
 - community.general
+- community.docker
 
 ## Platforms
 
