@@ -14,7 +14,6 @@ Manage nginx instance in Docker
 
 #### Collections
 - community.general
-- community.general
 - community.docker
 
 ## Platforms
@@ -26,6 +25,7 @@ Supported platforms
 - RockyLinux 8<sup>1</sup>
 - RockyLinux 9<sup>1</sup>
 - OracleLinux 8<sup>1</sup>
+- OracleLinux 9
 - AlmaLinux 8<sup>1</sup>
 - AlmaLinux 9<sup>1</sup>
 - Debian 10 (Buster)<sup>1</sup>
@@ -33,8 +33,8 @@ Supported platforms
 - Ubuntu 18.04 LTS<sup>1</sup>
 - Ubuntu 20.04 LTS<sup>1</sup>
 - Ubuntu 22.04 LTS<sup>1</sup>
-- Fedora 35<sup>1</sup>
 - Fedora 36<sup>1</sup>
+- Fedora 37<sup>1</sup>
 - Alpine 3<sup>1</sup>
 - Docker dind (CI only)
 
@@ -78,12 +78,6 @@ nginx_cert_type: 'self-signed'
 - name: sample playbook for role 'nginx_docker'
   hosts: all
   become: "yes"
-  pre_tasks:
-    - name: Create 'remote_tmp'
-      ansible.builtin.file:
-        path: /root/.ansible/tmp
-        state: directory
-        mode: "0700"
   roles:
   tasks:
     - name: Include role 'nginx_docker'

@@ -1,5 +1,7 @@
 ---
 
+- name: oraclelinux9
+  image: dropveter/oraclelinux9-ansible
 - name: docker
   image: dropveter/docker-dind-ansible:latest
   privileged: true
