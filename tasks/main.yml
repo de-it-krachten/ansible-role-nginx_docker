@@ -19,7 +19,7 @@
 
 - name: Create SSL certificate (self-signed)
   ansible.builtin.include_role:
-    name: openssl
+    name: deitkrachten.openssl
   vars:
     openssl_server_key: "{{ nginx_certs_path }}/{{ nginx_fqdn }}.key"
     openssl_server_crt: "{{ nginx_certs_path }}/{{ nginx_fqdn }}.crt"

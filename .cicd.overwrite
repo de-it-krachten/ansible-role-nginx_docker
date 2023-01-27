@@ -11,7 +11,7 @@ generic:
 # Dependencies
 dependencies:
   roles:
-    - openssl
+    - deitkrachten.openssl
 
 # Supported platforms
 platforms:
@@ -45,6 +45,9 @@ platforms:
   oraclelinux8:
     ci: false
     supported: true
+  oraclelinux9:
+    ci: false
+    supported: true
   almalinux8:
     ci: false
     supported: true
@@ -66,10 +69,10 @@ platforms:
   ubuntu2204:
     ci: false
     supported: true
-  fedora35:
+  fedora36:
     ci: false
     supported: true
-  fedora36:
+  fedora37:
     ci: false
     supported: true
   alpine3:
@@ -83,8 +86,8 @@ platforms:
 molecule:
   requirements:
     roles_extra:
-      - openssl
-      - python
+      - deitkrachten.openssl
+      - deitkrachten.python
   converge:
     roles: []
     vars: {}

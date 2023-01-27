@@ -1,6 +1,6 @@
 ---
 
-- name: openssl
+- name: deitkrachten.openssl
   src: https://github.com/de-it-krachten/ansible-role-openssl.git
   version: main
   scm: git
