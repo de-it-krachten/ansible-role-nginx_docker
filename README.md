@@ -47,6 +47,18 @@ Note:
 # nginx root
 nginx_root_path: /export/docker/nginx
 
+# Docker image to use
+nginx_docker_image: nginx
+
+nginx_docker_ssl: true
+
+# Volume list
+nginx_docker_volumes:
+  - "{{ nginx_confd_path }}:/etc/nginx/conf.d"
+  - "{{ nginx_certs_path }}:/etc/nginx/certs"
+  - "{{ nginx_html_path }}:/usr/share/nginx/html"
+  - "{{ nginx_log_path }}:/var/log/nginx"
+
 # nginx config path (drop-in)
 nginx_confd_path: "{{ nginx_root_path }}/conf.d"
 
@@ -65,8 +77,18 @@ nginx_server_root: /usr/share/nginx/html
 # FQDN of the web server
 nginx_fqdn: www.example.com
 
+nginx_vhosts:
+  - fqdn: "{{ nginx_fqdn }}"
+    root: "{{ nginx_server_root }}"
+
 # SSL/TLS type
 nginx_cert_type: 'self-signed'
+
+# Ports
+nginx_docker_ports:
+  - "443:443"
+
+nginx_docker_expose: []
 </pre></code>
 
 
@@ -78,7 +100,9 @@ nginx_cert_type: 'self-signed'
 - name: sample playbook for role 'nginx_docker'
   hosts: all
   become: "yes"
-  roles:
+  vars:
+    nginx_docker_environment: []
+    nginx_docker_networks: []
   tasks:
     - name: Include role 'nginx_docker'
       ansible.builtin.include_role:

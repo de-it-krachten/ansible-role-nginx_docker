@@ -3,7 +3,9 @@
 - name: Converge
   hosts: all
   become: "yes"
-  roles:
+  vars:
+    nginx_docker_environment: []
+    nginx_docker_networks: []
   tasks:
     - name: Include role 'ansible-role-nginx_docker'
       ansible.builtin.include_role:

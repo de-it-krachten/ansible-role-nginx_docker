@@ -90,4 +90,6 @@ molecule:
       - deitkrachten.python
   converge:
     roles: []
-    vars: {}
+    vars:
+      nginx_docker_environment: []
+      nginx_docker_networks: []
