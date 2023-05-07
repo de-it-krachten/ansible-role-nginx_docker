@@ -1,11 +1,45 @@
 version: '3'
 services:
   nginx:
-    image: nginx
-    volumes:
-      - "{{ nginx_confd_path }}:/etc/nginx/conf.d"
-      - "{{ nginx_certs_path }}:/etc/nginx/certs"
-      - "{{ nginx_html_path }}:/usr/share/nginx/html"
-      - "{{ nginx_log_path }}:/var/log/nginx" 
+    image: "{{ nginx_docker_image }}"
+{% if nginx_docker_volumes | length > 0 %}
+    volumes: 
+{% for volume in nginx_docker_volumes %}
+      - "{{ volume }}"
+{% endfor %}
+{% endif %}
+{% if nginx_docker_ports | length > 0 %}
     ports:
-      - 443:443
+{% for port in nginx_docker_ports %}
+      - "{{ port }}"
+{% endfor %}
+{% endif %}
+{% if nginx_docker_expose | length > 0 %}
+    expose: 
+{% for port in nginx_docker_expose %}
+      - "{{ port }}"
+{% endfor %}
+{% endif %}
+{% if nginx_docker_environment | length > 0 %}
+    environment: 
+{% for env in nginx_docker_environment %}
+      - {{ env }}
+{% endfor %}
+{% endif %}
+{% if nginx_docker_networks | length > 0 %}
+    networks: 
+{% for network in nginx_docker_networks %}
+      - {{ network.name }}
+{% endfor %}
+{% endif %}
+
+{% for network in nginx_docker_networks %}
+networks:
+  {{ network.name }}:
+{% if network.external is defined %}
+external: {{ network.external }}
+{% endif %}
+{% if network.driver is defined %}
+    driver: {{ network.driver }}
+{% endif %}
+{% endfor %}

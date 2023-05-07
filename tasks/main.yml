@@ -2,24 +2,36 @@
 
 - name: Create nginx directories
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: "{{ item | regex_replace(':.*') }}"
     state: directory
+    owner: root
+    group: "{{ nginx_proxy_docker_group | default('root') }}"
     mode: "0755"
-  loop:
-    - "{{ nginx_confd_path }}"
-    - "{{ nginx_certs_path }}"
-    - "{{ nginx_html_path }}"
-    - "{{ nginx_log_path }}"
+  loop: "{{ nginx_docker_volumes }}"
+  when: item is search(':')
 
 - name: Create nginx configuration
   ansible.builtin.template:
     src: nginx.vhost.conf.j2
-    dest: "{{ nginx_confd_path }}/{{ nginx_fqdn }}.conf"
+    dest: "{{ nginx_confd_path }}/{{ vhost.fqdn }}.conf"
     mode: "0644"
+  loop: "{{ nginx_vhosts }}"
+  loop_control:
+    loop_var: vhost
+
+- name: Create nginx_proxy/nginx configuration files
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode | default('0644') }}"
+  loop:
+    - src: docker-compose.yml.j2
+      dest: "{{ nginx_root_path }}/docker-compose.yml"
+  notify: Restart docker
 
 - name: Create SSL certificate (self-signed)
   ansible.builtin.include_role:
-    name: openssl
+    name: deitkrachten.openssl
   vars:
     openssl_server_key: "{{ nginx_certs_path }}/{{ nginx_fqdn }}.key"
     openssl_server_crt: "{{ nginx_certs_path }}/{{ nginx_fqdn }}.crt"
@@ -29,8 +41,3 @@
     apply:
       become: yes
   when: nginx_cert_type == 'self-signed'
-
-- name: Start nginx container
-  community.docker.docker_compose:
-    project_name: nginx
-    definition: "{{ lookup('template', 'docker-compose.yml.j2') | from_yaml }}"

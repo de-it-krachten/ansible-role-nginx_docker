@@ -1,15 +1,20 @@
 server {
+{% if nginx_docker_ssl | bool %}
     listen              443 ssl;
-    server_name         {{ nginx_fqdn }};
-    ssl_certificate     /etc/nginx/certs/{{ nginx_fqdn }}.crt;
-    ssl_certificate_key /etc/nginx/certs/{{ nginx_fqdn }}.key;
+    server_name         {{ vhost.fqdn }};
+    ssl_certificate     /etc/nginx/certs/{{ vhost.fqdn }}.crt;
+    ssl_certificate_key /etc/nginx/certs/{{ vhost.fqdn }}.key;
     ssl_protocols       TLSv1.2 TLSv1.3;
     ssl_ciphers         HIGH:!aNULL:!MD5;
+{% else %}
+    listen              80;
+    server_name         {{ vhost.fqdn }};
+{% endif %}
 
     #access_log  /var/log/nginx/host.access.log  main;
 
     location / {
-        root   {{ nginx_server_root }};
+        root   {{ vhost.root }};
         index  index.html index.htm;
     }
 

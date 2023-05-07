@@ -3,13 +3,9 @@
 - name: Converge
   hosts: all
   become: "yes"
-  pre_tasks:
-    - name: Create 'remote_tmp'
-      ansible.builtin.file:
-        path: /root/.ansible/tmp
-        state: directory
-        mode: "0700"
-  roles:
+  vars:
+    nginx_docker_environment: []
+    nginx_docker_networks: []
   tasks:
     - name: Include role 'ansible-role-nginx_docker'
       ansible.builtin.include_role:
