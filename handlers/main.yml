@@ -1,7 +1,8 @@
 ---
 
 - name: Restart docker
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
+    state: present
     project_src: "{{ nginx_root_path }}"
-    build: false
-    restarted: true
+    build: never
+    pull: missing
