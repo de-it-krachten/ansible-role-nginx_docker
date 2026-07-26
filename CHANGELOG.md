@@ -1,3 +1,12 @@
+# [1.5.0](https://github.com/de-it-krachten/ansible-role-nginx_docker/compare/v1.4.0...v1.5.0) (2026-07-26)
+
+
+### Features
+
+* Added support for Fedora 44 ([de2fb30](https://github.com/de-it-krachten/ansible-role-nginx_docker/commit/de2fb307a958a6784fcd922450b29fee71375310))
+* Added support for Ubuntu 26.04 LTS ([e15d312](https://github.com/de-it-krachten/ansible-role-nginx_docker/commit/e15d3123c8be0c0b8cc0a0ce6e90df167b8870a9))
+* Drop support for Fedora 42 ([ad31622](https://github.com/de-it-krachten/ansible-role-nginx_docker/commit/ad3162264f02788fc06aaf166682b5b35a82d0cb))
+
 # [1.4.0](https://github.com/de-it-krachten/ansible-role-nginx_docker/compare/v1.3.0...v1.4.0) (2026-03-15)
 
 
