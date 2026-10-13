@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/de-it-krachten/ansible-role-nginx_docker/compare/v1.5.0...v1.6.0) (2026-10-13)
+
+
+### Features
+
+* Drop support for Debian 11 (Bullseye) ([3513fcc](https://github.com/de-it-krachten/ansible-role-nginx_docker/commit/3513fcc6e44ab60724e9861f779e204b1401c2f4))
+
 # [1.5.0](https://github.com/de-it-krachten/ansible-role-nginx_docker/compare/v1.4.0...v1.5.0) (2026-07-26)
 
 
